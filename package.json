@@ -4,20 +4,27 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "next": "12.0.1",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@googlemaps/js-api-loader": "^1.12.9",
+    "@types/google.maps": "^3.46.1",
+    "next": "^12.0.4-canary.4",
+    "react": "^18.0.0-alpha-9c8161ba8-20211028",
+    "react-dom": "^18.0.0-alpha-9c8161ba8-20211028",
+    "zustand": "^3.6.5"
   },
   "devDependencies": {
+    "@swc/cli": "^0.1.51",
+    "@swc/core": "^1.2.106",
     "@types/node": "16.11.6",
     "@types/react": "17.0.33",
+    "@types/styled-components": "^5.1.15",
     "eslint": "7.32.0",
     "eslint-config-next": "12.0.1",
+    "styled-components": "^5.3.3",
     "typescript": "4.4.4"
   }
 }

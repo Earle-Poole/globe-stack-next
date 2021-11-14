@@ -2,8 +2,6 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -13,4 +11,83 @@ a {
 
 * {
   box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+/*
+ * Google related
+ */
+
+ .gmnoprint a,
+.gmnoprint span,
+.gm-fullscreen-control,
+.gmnoprint[style*="left: 0px; top: 0px"],
+a[href^="https://maps.google.com/maps"],
+.pac-container.pac-logo::after,
+a[title="Report errors in the road map or imagery to Google"] {
+  display: none !important;
+}
+
+.gmnoprint div {
+  background: none !important;
+}
+
+[class^='googleMaps_map'][class$='gettingCoords']
+  > div
+  > .gm-style:first-of-type
+  > div:nth-child(1) {
+  cursor: crosshair !important;
+}
+
+[class^='googleMaps_map'][class$='gettingCoords']
+  > div
+  > .gm-style:first-of-type
+  > div:nth-child(1)
+  > div:nth-child(3) {
+  box-shadow: inset 0 0 15px 5px #ff0000;
+}
+
+@media screen and (min-width: 0\0) and (min-resolution: +72dpi) {
+  /* IE9+ CSS */
+  .gm-style-cc > div > [style*='background-color'] {
+    background-color: rgba(0, 0, 0, 0.66) !important;
+  }
+
+  .gmnoprint.gm-style-cc > div > [style*='background-color'] {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+
+  .gm-style-cc > [style*='text-align: right'] > div > div:nth-child(2),
+  .gm-style-cc > [style*='text-align: right'] > div > div:nth-child(3) {
+    background-color: rgba(0, 0, 0, 0) !important;
+  }
+
+  .gm-style-cc > [style*='text-align: right'] > span {
+    color: rgba(153, 153, 153, 1) !important;
+  }
+
+  .gm-style-cc > [style*='text-align: right'] > div > div:nth-child(4),
+  .gm-style-cc > [style*='text-align: right'] > div > div:nth-child(5),
+  .gm-style-cc > [style*='text-align: right'] > div > div:nth-child(6) {
+    background-color: rgba(153, 153, 153, 1) !important;
+  }
+}
+
+.pac-container.pac-logo {
+  background: transparent;
+}
+
+.pac-container > .pac-item {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid #999999;
+  border-radius: 0 0 3px 3px;
+  color: #ffffff;
+}
+
+.pac-container > .pac-item:hover {
+  background: rgba(50, 50, 50, 0.8);
+}
+
+.pac-container > .pac-item > .pac-item-query {
+  color: #ffffff;
 }
