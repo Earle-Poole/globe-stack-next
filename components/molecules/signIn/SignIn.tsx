@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { setCookie } from '../../../utils/fn';
+import { setCookie } from '@/utils/fn';
 import { useSignInStore } from './signInStore';
 
 const SignIn = () => {

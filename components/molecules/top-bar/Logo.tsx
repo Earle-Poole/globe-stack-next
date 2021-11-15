@@ -1,28 +1,32 @@
-import { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { throttle } from '../../../utils/fn';
+import { useCallback, useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { throttle } from '@/utils/fn'
+import { callClientSide } from '@/utils/tacklebox'
 
 const Logo = () => {
   let defaultWidth = 0
 
-  if (typeof window !== 'undefined') {
+  callClientSide(() => {
     defaultWidth = window.innerWidth
-  }
+  })
 
-  const [windowWidth, setWindowWidth] = useState(defaultWidth);
+  const [windowWidth, setWindowWidth] = useState(defaultWidth)
 
   const setWindowInnerWidth = useCallback(() => {
-    setWindowWidth(defaultWidth);
+    setWindowWidth(defaultWidth)
   }, [defaultWidth])
 
   useEffect(() => {
-    const windowResizeTuple: [string, () => void] = ['resize', throttle(setWindowInnerWidth, 250)];
-    window.addEventListener(...windowResizeTuple);
+    const windowResizeTuple: [string, () => void] = [
+      'resize',
+      throttle(setWindowInnerWidth, 250),
+    ]
+    window.addEventListener(...windowResizeTuple)
 
     return () => {
-      window.removeEventListener(...windowResizeTuple);
-    };
-  }, [setWindowInnerWidth]);
+      window.removeEventListener(...windowResizeTuple)
+    }
+  }, [setWindowInnerWidth])
 
   return (
     <LogoWrapper>
@@ -34,15 +38,15 @@ const Logo = () => {
         <strong>{windowWidth > 800 ? 'Stack' : 'S'}</strong>
       </LogoText>
     </LogoWrapper>
-  );
-};
+  )
+}
 
-export default Logo;
+export default Logo
 
 const LogoWrapper = styled.div`
   color: ${(props) => props.theme.fontColor};
   user-select: none;
-`;
+`
 
 const Globe = styled.i`
   font-size: 16px;
@@ -62,7 +66,7 @@ const Globe = styled.i`
     color: blue;
     top: 23px;
   }
-`;
+`
 
 const LogoText = styled.span`
   position: absolute;
@@ -75,4 +79,4 @@ const LogoText = styled.span`
     font-weight: 900;
     letter-spacing: 1.5px;
   }
-`;
+`

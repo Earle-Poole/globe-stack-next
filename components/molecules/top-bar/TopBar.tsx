@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Logo from './Logo.client'
+import Logo from './Logo'
 import MenuButton from './MenuButton'
 
 const TopBar = () => {

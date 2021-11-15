@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import styled from 'styled-components'
-import useMapStore from '../map/mapStore'
+import useMapStore from '@/organisms/map/mapStore'
 
 interface BookmarkObj {
   label: string
@@ -20,21 +20,6 @@ const Bookmark = (props: {
     </BookmarkWrapper>
   )
 }
-
-const BookmarkWrapper = styled.div`
-  position: relative;
-  font-size: 32px;
-  display: flex;
-  justify-content: center;
-  padding: 5px;
-
-  div {
-    font-size: 12px;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-  }
-`
 
 const Bookmarks = () => {
   const primaryMap = useMapStore((store) => store.primaryGoogleMap)
@@ -148,4 +133,19 @@ const IconWrapper = styled.div``
 const TitleWrapper = styled.div`
   font-size: 12px;
   text-align: center;
+`
+
+const BookmarkWrapper = styled.div`
+  position: relative;
+  font-size: 32px;
+  display: flex;
+  justify-content: center;
+  padding: 5px;
+
+  div {
+    font-size: 12px;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
 `

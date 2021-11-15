@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { MenuButtonTypes } from '../uiStore'
+import { MenuButtonTypes } from '@/organisms/ui-overlay/uiStore'
 import Bookmarks from './Bookmarks'
 import Selections from './Selections'
 import Settings from './Settings'

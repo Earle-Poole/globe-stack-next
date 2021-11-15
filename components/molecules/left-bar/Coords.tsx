@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ReactDOM from 'react-dom';
-import useMapStore from '../map/mapStore';
-import { copyToClipboard, throttle } from '../../../utils/fn';
-import useUIStore from '../../templates/ui-overlay/uiStore';
+import useMapStore from '@/organisms/map/mapStore';
+import { copyToClipboard, throttle } from '@/utils/fn';
+import useUIStore from '@/organisms/ui-overlay/uiStore';
 
 interface CoordsCopierProps {
   disableCoordsCopy: () => void;

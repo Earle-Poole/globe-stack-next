@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import styled from 'styled-components'
-import useMapStore from '../map/mapStore'
+import useMapStore from '@/organisms/map/mapStore'
 
 export const Polyline = () => {
   const primaryMap = useMapStore((store) => store.primaryGoogleMap)

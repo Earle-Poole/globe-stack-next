@@ -1,15 +1,14 @@
-import { useCallback, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { Loader } from '@googlemaps/js-api-loader';
-import backgroundImage from '../../assets/low-poly-tile.png';
-import useMapStore from './mapStore';
+import { useCallback, useEffect, useRef } from 'react'
+import styled from 'styled-components'
+import { Loader } from '@googlemaps/js-api-loader'
+import backgroundImage from '@/assets/low-poly-tile.png'
+import useMapStore from './mapStore'
+import { ThemeOption } from '../ui-overlay/uiStore'
+import { theme } from '@/templates/home/Home'
 
-const BASE_URL = 'https://maps.googleapis.com/maps/api/js?';
-const KEY_PATH = `key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
-const LIBRARIES_PATH = '&libraries=places,geometry';
-const OVERVIEW_DIFFERENCE = 5;
-const OVERVIEW_MIN_ZOOM = 3;
-const OVERVIEW_MAX_ZOOM = 10;
+const OVERVIEW_DIFFERENCE = 5
+const OVERVIEW_MIN_ZOOM = 3
+const OVERVIEW_MAX_ZOOM = 10
 
 const restrictionBounds = {
   latLngBounds: {
@@ -19,7 +18,7 @@ const restrictionBounds = {
     west: -180,
   },
   strictBounds: true,
-};
+}
 
 const mapOptions = {
   center: { lat: 44.967243, lng: -103.771556 },
@@ -29,16 +28,18 @@ const mapOptions = {
   mapTypeControl: false,
   streetViewControl: false,
   zoomControl: false,
-};
+}
 
 const Map = () => {
-  const setGoogleMap = useMapStore((store) => store.setGoogleMap);
-  const setOverviewRectangle = useMapStore((store) => store.setOverviewRectangle);
-  const mapRef = useRef<HTMLDivElement>(null!);
-  const overviewMapRef = useRef<HTMLDivElement>(null!);
-  const primaryMapRef = useRef<google.maps.Map>(null!);
-  const secondaryMapRef = useRef<google.maps.Map>(null!);
-  const overviewRectangleRef = useRef<google.maps.Rectangle>(null!);
+  const setGoogleMap = useMapStore((store) => store.setGoogleMap)
+  const setOverviewRectangle = useMapStore(
+    (store) => store.setOverviewRectangle
+  )
+  const mapRef = useRef<HTMLDivElement>(null!)
+  const overviewMapRef = useRef<HTMLDivElement>(null!)
+  const primaryMapRef = useRef<google.maps.Map>(null!)
+  const secondaryMapRef = useRef<google.maps.Map>(null!)
+  const overviewRectangleRef = useRef<google.maps.Rectangle>(null!)
 
   const renderPrimaryMap = useCallback(
     () =>
@@ -47,7 +48,7 @@ const Map = () => {
         restriction: restrictionBounds,
       }),
     []
-  );
+  )
 
   const renderSecondaryMap = useCallback(
     () =>
@@ -58,105 +59,111 @@ const Map = () => {
         draggableCursor: 'default',
       }),
     []
-  );
+  )
 
   const clamp = (num: number, min: number, max: number) => {
-    return Math.min(Math.max(num, min), max);
-  };
+    return Math.min(Math.max(num, min), max)
+  }
 
   const initPrimarySecondaryMaps = useCallback(() => {
-    const primaryMap: google.maps.Map = renderPrimaryMap();
-    const secondaryMap: google.maps.Map = renderSecondaryMap();
+    const primaryMap: google.maps.Map = renderPrimaryMap()
+    const secondaryMap: google.maps.Map = renderSecondaryMap()
 
-    primaryMapRef.current = primaryMap;
-    secondaryMapRef.current = secondaryMap;
+    primaryMapRef.current = primaryMap
+    secondaryMapRef.current = secondaryMap
 
-    // const localStorageTheme = localStorage.getItem('theme') as ThemeOption | null
+    const localStorageTheme = localStorage.getItem('theme') as ThemeOption | null
 
     const rectangleOptions: google.maps.RectangleOptions = {
       draggable: true,
       fillOpacity: 0.35,
-      // fillColor: localStorageTheme ? theme[localStorageTheme].primaryColor : theme.dark.primaryColor,
+      fillColor: localStorageTheme ? theme[localStorageTheme].primaryColor : theme.dark.primaryColor,
       map: secondaryMapRef.current,
       strokeOpacity: 0,
       strokeWeight: 0,
-    };
-
-    const localStorageBasemap = localStorage.getItem('basemap');
-
-    if (localStorageBasemap) {
-      primaryMap.setOptions(JSON.parse(localStorageBasemap));
-      secondaryMap.setOptions(JSON.parse(localStorageBasemap));
     }
 
-    const overviewRectangle = new window.google.maps.Rectangle(rectangleOptions);
+    const localStorageBasemap = localStorage.getItem('basemap')
 
-    overviewRectangleRef.current = overviewRectangle;
+    if (localStorageBasemap) {
+      primaryMap.setOptions(JSON.parse(localStorageBasemap))
+      secondaryMap.setOptions(JSON.parse(localStorageBasemap))
+    }
+
+    const overviewRectangle = new window.google.maps.Rectangle(rectangleOptions)
+
+    overviewRectangleRef.current = overviewRectangle
 
     primaryMap.addListener('bounds_changed', () => {
-      secondaryMap.setCenter(primaryMap.getCenter()!);
+      secondaryMap.setCenter(primaryMap.getCenter()!)
       secondaryMap.setZoom(
-        clamp(primaryMap.getZoom()! - OVERVIEW_DIFFERENCE, OVERVIEW_MIN_ZOOM, OVERVIEW_MAX_ZOOM)
-      );
+        clamp(
+          primaryMap.getZoom()! - OVERVIEW_DIFFERENCE,
+          OVERVIEW_MIN_ZOOM,
+          OVERVIEW_MAX_ZOOM
+        )
+      )
       overviewRectangle.setOptions({
         bounds: primaryMap.getBounds(),
-      });
-    });
+      })
+    })
 
     const overviewRectOnDrag = () => {
-      primaryMap.setCenter(overviewRectangle.getBounds()?.getCenter()!);
-    };
+      primaryMap.setCenter(overviewRectangle.getBounds()?.getCenter()!)
+    }
 
-    overviewRectangle.addListener('dragend', overviewRectOnDrag);
+    overviewRectangle.addListener('dragend', overviewRectOnDrag)
 
-    setGoogleMap('primary', primaryMap);
-    setGoogleMap('secondary', secondaryMap);
-    setOverviewRectangle(overviewRectangle);
+    setGoogleMap('primary', primaryMap)
+    setGoogleMap('secondary', secondaryMap)
+    setOverviewRectangle(overviewRectangle)
 
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         const userLatLng = new google.maps.LatLng(
           position.coords.latitude,
           position.coords.longitude
-        );
-        primaryMap.setCenter(userLatLng);
-        primaryMap.setZoom(9);
-      });
+        )
+        primaryMap.setCenter(userLatLng)
+        primaryMap.setZoom(9)
+      })
     }
 
     return () => {
-      overviewRectangle.setMap(null);
-    };
-  }, [renderPrimaryMap, renderSecondaryMap, setGoogleMap, setOverviewRectangle]);
+      overviewRectangle.setMap(null)
+    }
+  }, [renderPrimaryMap, renderSecondaryMap, setGoogleMap, setOverviewRectangle])
 
   useEffect(() => {
     const loader = new Loader({
       apiKey: `${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`,
       version: 'weekly',
-    });
+    })
 
-    loader.load().then(initPrimarySecondaryMaps);
-  }, [initPrimarySecondaryMaps]);
+    loader.load().then(initPrimarySecondaryMaps)
+  }, [initPrimarySecondaryMaps])
 
   return (
     <>
       <MapWrapper id='map' ref={mapRef} />
       <OverviewMapWrapper id='overviewMap' ref={overviewMapRef} />
     </>
-  );
-};
+  )
+}
 
 const MapWrapper = styled.div`
   height: 100vh;
   width: 100vw;
   background-repeat: no-repeat;
   background-size: cover;
+  background: url(${backgroundImage.src}) #222222 !important;
 
   & > div {
     background-repeat: no-repeat;
     background-size: cover;
+    background: url(${backgroundImage.src}) #222222 !important;
   }
-`;
+`
 
 const OverviewMapWrapper = styled.div`
   position: absolute;
@@ -171,11 +178,14 @@ const OverviewMapWrapper = styled.div`
 
   background-repeat: no-repeat;
   background-size: contain;
+  background: url(${backgroundImage.src}) #222222 !important;
 
   & > div {
     background-repeat: no-repeat;
     background-size: contain;
-  }
-`;
+  background: url(${backgroundImage.src}) #222222 !important;
 
-export default Map;
+  }
+`
+
+export default Map

@@ -11,14 +11,15 @@ a {
 
 * {
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
 }
 
 /*
  * Google related
  */
-
- .gmnoprint a,
+.gmnoprint a,
 .gmnoprint span,
 .gm-fullscreen-control,
 .gmnoprint[style*="left: 0px; top: 0px"],

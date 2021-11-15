@@ -3,10 +3,10 @@ import WindowContainer from './WindowContainer'
 import 'react-grid-layout/css/styles.css'
 import 'react-resizable/css/styles.css'
 import GridLayout from 'react-grid-layout'
-import useUIStore from '../../templates/ui-overlay/uiStore'
+import useUIStore from '@/organisms/ui-overlay/uiStore'
+import { callClientSide } from '@/utils/tacklebox'
 
 const WindowGrid = () => {
-  let defaultWidth = 0
   const bookmarksIsActive = useUIStore(
     (store) => store.topMenuButtons.bookmarks.isActive
   )
@@ -19,9 +19,10 @@ const WindowGrid = () => {
 
   const defaultGridOptions = { x: 12, y: 0, w: 2, h: 2, minW: 2, maxW: 5 }
 
-  if(typeof window !== 'undefined') {
+  let defaultWidth = 0
+  callClientSide(() => {
     defaultWidth = window.innerWidth
-  }
+  })
 
   return (
     <WindowGridWrapper>

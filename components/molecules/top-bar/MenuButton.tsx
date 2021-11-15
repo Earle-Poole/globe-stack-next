@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import useUIStore, { MenuButtonTypes } from '../../templates/ui-overlay/uiStore';
+import useUIStore, { MenuButtonTypes } from '@/organisms/ui-overlay/uiStore';
 
 interface MenuButtonProps {
   children: JSX.Element | string;

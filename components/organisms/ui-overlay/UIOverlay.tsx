@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import LeftBar from '../../organisms/left-bar/LeftBar';
-import TopBar from '../../organisms/top-bar/TopBar';
-import WindowGrid from '../../organisms/windows/WindowGrid';
+import styled from 'styled-components'
+import LeftBar from '@/molecules/left-bar/LeftBar'
+import TopBar from '@/molecules/top-bar/TopBar'
+import WindowGrid from '@/molecules/windows/WindowGrid'
 
 const UIOverlay = () => {
   return (
@@ -10,8 +10,8 @@ const UIOverlay = () => {
       <LeftBar />
       <WindowGrid />
     </UIOverlayWrapper>
-  );
-};
+  )
+}
 
 const UIOverlayWrapper = styled.div`
   * ::-webkit-scrollbar-thumb {
@@ -25,6 +25,6 @@ const UIOverlayWrapper = styled.div`
   right: 0;
   top: 0;
   transition: left 0.3s;
-`;
+`
 
-export default UIOverlay;
+export default UIOverlay

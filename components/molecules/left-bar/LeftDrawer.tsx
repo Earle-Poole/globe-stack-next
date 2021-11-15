@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { throttle } from '../../../utils/fn';
+import { throttle } from '@/utils/fn';
 
 let dragImg: HTMLImageElement;
 if (typeof window === 'object') {

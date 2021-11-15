@@ -1,23 +1,24 @@
-import useUIStore from '../ui-overlay/uiStore';
-import { useSignInStore } from '../../molecules/signIn/signInStore';
-import Head from 'next/head';
-import { useEffect } from 'react';
-import { ThemeProvider } from 'styled-components';
-import { getCookie } from '../../../utils/fn';
-import Overlay from '../../atoms/overlay/Overlay';
-import SignIn from '../../molecules/signIn/SignIn';
-import Map from '../../organisms/map/MapComponent';
-import UIOverlay from '../ui-overlay/UIOverlay';
-import styles from './Home.module.css';
+import useUIStore from '@/organisms/ui-overlay/uiStore'
+import { useSignInStore } from '@/molecules/signIn/signInStore'
+import Head from 'next/head'
+import { useEffect } from 'react'
+import { ThemeProvider } from 'styled-components'
+import { getCookie } from '@/utils/fn'
+import Overlay from '@/atoms/overlay/Overlay'
+import SignIn from '@/molecules/signIn/SignIn'
+import Map from '@/organisms/map/MapComponent'
+import UIOverlay from '@/organisms/ui-overlay/UIOverlay'
+import styles from './Home.module.css'
+import { callClientSide } from '@/utils/tacklebox'
 
 interface ThemeObj {
-  fontColor: string;
-  invertedFontColor: string;
-  insetBoxShadow: string;
-  primaryColor: string;
-  secondaryColor: string;
-  primaryBackgroundColor: string;
-  secondaryBackgroundColor: string;
+  fontColor: string
+  invertedFontColor: string
+  insetBoxShadow: string
+  primaryColor: string
+  secondaryColor: string
+  primaryBackgroundColor: string
+  secondaryBackgroundColor: string
 }
 
 export const theme: { light: ThemeObj; dark: ThemeObj } = {
@@ -39,16 +40,27 @@ export const theme: { light: ThemeObj; dark: ThemeObj } = {
     primaryBackgroundColor: '#000000cc',
     secondaryBackgroundColor: '#333333cc',
   },
-};
+}
 
 const Home = () => {
-  const selectedTheme = useUIStore((state) => state.theme);
-  const isLoggedIn = useSignInStore((state) => state.isLoggedIn);
-  const setIsLoggedIn = useSignInStore((state) => state.setIsLoggedIn);
+  const selectedTheme = useUIStore((state) => state.theme)
+  const setTheme = useUIStore((state) => state.setTheme)
+  const isLoggedIn = useSignInStore((state) => state.isLoggedIn)
+  const setIsLoggedIn = useSignInStore((state) => state.setIsLoggedIn)
 
+  // This useEffect will set the theme based on the localStorage
   useEffect(() => {
-    atob(getCookie(btoa('isLoggedIn'))) !== 'true' && setIsLoggedIn(false);
-  }, [setIsLoggedIn]);
+    callClientSide(() => {
+      if (localStorage.getItem('theme') === 'light') {
+        setTheme('light')
+      }
+    })
+  }, [setTheme])
+
+  // This useEffect will set the isLoggedIn based on the cookie
+  useEffect(() => {
+    atob(getCookie(btoa('isLoggedIn'))) !== 'true' && setIsLoggedIn(false)
+  }, [setIsLoggedIn])
 
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
@@ -65,7 +77,7 @@ const Home = () => {
         )}
       </div>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

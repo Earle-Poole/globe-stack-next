@@ -1,16 +1,16 @@
 import styled from 'styled-components'
-import midnightBasemap from '../../../assets/midnight-basemap.png'
-import midnightLowBasemap from '../../../assets/midnight-low-basemap.png'
-import daybreakBasemap from '../../../assets/daybreak-basemap.png'
-import daybreakLowBasemap from '../../../assets/daybreak-low-basemap.png'
-import satelliteBasemap from '../../../assets/satellite-basemap.png'
-import googleMapsBasemap from '../../../assets/google-maps-basemap.png'
-import mapStyles from '../map/mapStylesTemplates'
-import useMapStore from '../map/mapStore'
-import useUIStore, { ThemeOption } from '../../templates/ui-overlay/uiStore'
-import { theme } from '../../../pages/_app'
+import midnightBasemap from '@/assets/midnight-basemap.png'
+import midnightLowBasemap from '@/assets/midnight-low-basemap.png'
+import daybreakBasemap from '@/assets/daybreak-basemap.png'
+import daybreakLowBasemap from '@/assets/daybreak-low-basemap.png'
+import satelliteBasemap from '@/assets/satellite-basemap.png'
+import googleMapsBasemap from '@/assets/google-maps-basemap.png'
+import mapStyles from '@/organisms/map/mapStylesTemplates'
+import useUIStore, { ThemeOption } from '@/organisms/ui-overlay/uiStore'
 import Image from 'next/image'
-import Toggle, { ToggleWrapper } from '../../atoms/toggle/Toggle'
+import Toggle, { ToggleWrapper } from '@/atoms/toggle/Toggle'
+import { theme } from '@/templates/home/Home'
+import useMapStore from '@/organisms/map/mapStore'
 
 // const basemaps = [
 //   {
@@ -150,13 +150,13 @@ const Settings = () => {
         <SectionBody>
           <ButtonWrapper onClick={onBasemapButtonClick('Midnight')}>
             <IconWrapper>
-              <Image src={midnightBasemap} alt='' />
+              <Image src={midnightBasemap} alt='' unoptimized />
             </IconWrapper>
             Midnight
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('MidnightLow')}>
             <IconWrapper>
-              <Image src={midnightLowBasemap} alt='' />
+              <Image src={midnightLowBasemap} alt='' unoptimized />
             </IconWrapper>
             Midnight
             <br />
@@ -164,19 +164,19 @@ const Settings = () => {
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Satellite')}>
             <IconWrapper>
-              <Image src={satelliteBasemap} alt='' />
+              <Image src={satelliteBasemap} alt='' unoptimized />
             </IconWrapper>
             Satellite
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Daybreak')}>
             <IconWrapper>
-              <Image src={daybreakBasemap} alt='' />
+              <Image src={daybreakBasemap} alt='' unoptimized />
             </IconWrapper>
             Daybreak
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('DaybreakLow')}>
             <IconWrapper>
-              <Image src={daybreakLowBasemap} alt='' />
+              <Image src={daybreakLowBasemap} alt='' unoptimized />
             </IconWrapper>
             Daybreak
             <br />
@@ -184,7 +184,7 @@ const Settings = () => {
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Google Maps')}>
             <IconWrapper>
-              <Image src={googleMapsBasemap} alt='' />
+              <Image src={googleMapsBasemap} alt='' unoptimized />
             </IconWrapper>
             Google Maps
           </ButtonWrapper>

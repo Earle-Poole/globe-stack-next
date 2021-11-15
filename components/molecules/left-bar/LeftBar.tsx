@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import useUIStore from '../../templates/ui-overlay/uiStore';
-import useMapStore from '../map/mapStore';
+import useUIStore from '@/organisms/ui-overlay/uiStore';
+import useMapStore from '@/organisms/map/mapStore';
 import Coords from './Coords';
 import LeftDrawer from './LeftDrawer';
 
