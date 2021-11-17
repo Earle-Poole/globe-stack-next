@@ -21,7 +21,7 @@ const CoordsCopier = (props: CoordsCopierProps) => {
             : e.pixel.x + (tooltipWrapperRef.current.offsetWidth / 2 + 5) > window.innerWidth
             ? window.innerWidth - (tooltipWrapperRef.current.offsetWidth + 5)
             : e.pixel.x - tooltipWrapperRef.current.offsetWidth / 2,
-        y: e.pixel.y > window.innerHeight - 85 ? e.pixel.y - 85 : e.pixel.y + 25,
+        y: e.pixel.y > window.innerHeight - 105 ? e.pixel.y - 85 : e.pixel.y + 25,
         ...e.latLng.toJSON(),
       });
     }, 10)
@@ -143,7 +143,7 @@ const Coords = () => {
                 setIsCoordsCopyEnabled(false);
               }}
             />,
-            document.getElementById('root')!
+            document.getElementById('__next')!
           )
         : null}
     </CoordsWrapper>
