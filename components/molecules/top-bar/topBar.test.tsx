@@ -4,16 +4,13 @@ import TopBar from './TopBar';
 
 afterEach(cleanup);
 describe('topbar tests', () => {
+  render(<TopBar />);
   it('loads the topbar', () => {
-    render(<TopBar />);
-
     const topBarElem = screen.getByTestId('top-bar');
 
     expect(topBarElem).toBeInTheDocument();
   });
   it('loads the logo', () => {
-    render(<TopBar />);
-
     const globeText = screen.getByText('Globe');
     const stackText = screen.getByText('Stack');
 

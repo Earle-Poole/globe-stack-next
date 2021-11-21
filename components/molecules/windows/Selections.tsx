@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import useMapStore from '@/organisms/map/mapStore'
 import { Polyline, Polygon, Rectangle, Circle } from './Selections.Tools'
-
-type ToolOption = 'polyline' | 'polygon' | 'rectangle' | 'circle'
+import { tools } from '@/utils/constants'
+import { ToolValues } from '@/utils/constants.types'
 
 const Selections = () => {
-  const [selectedTool, setSelectedTool] = useState<ToolOption | null>(null)
+  const [selectedTool, setSelectedTool] = useState<ToolValues | null>(null)
   const primaryMap = useMapStore((store) => store.primaryGoogleMap)
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Selections = () => {
     }
   }, [primaryMap, selectedTool])
 
-  const onToolClickHandler = (tool: ToolOption | null) => () => {
+  const onToolClickHandler = (tool: ToolValues | null) => () => {
     if (tool === selectedTool) {
       setSelectedTool(null)
       return
@@ -35,13 +35,13 @@ const Selections = () => {
 
   const SelectedTool = () => {
     switch (selectedTool) {
-      case 'circle':
+      case tools.CIRCLE:
         return <Circle />
-      case 'polygon':
+      case tools.POLYGON:
         return <Polygon />
-      case 'polyline':
+      case tools.POLYLINE:
         return <Polyline />
-      case 'rectangle':
+      case tools.RECTANGLE:
         return <Rectangle />
       default:
         return null
@@ -51,26 +51,26 @@ const Selections = () => {
     <SelectionsWrapper>
       <ToolSelectionWrapper>
         <PolylineButton
-          isSelected={selectedTool === 'polyline'}
-          onClick={onToolClickHandler('polyline')}>
+          isSelected={selectedTool === tools.POLYLINE}
+          onClick={onToolClickHandler(tools.POLYLINE)}>
           <i className='fal fa-route'></i>
           <span>Polyline</span>
         </PolylineButton>
         <PolygonButton
-          isSelected={selectedTool === 'polygon'}
-          onClick={onToolClickHandler('polygon')}>
+          isSelected={selectedTool === tools.POLYGON}
+          onClick={onToolClickHandler(tools.POLYGON)}>
           <i className='fal fa-draw-polygon'></i>
           <span>Polygon</span>
         </PolygonButton>
         <RectangleButton
-          isSelected={selectedTool === 'rectangle'}
-          onClick={onToolClickHandler('rectangle')}>
+          isSelected={selectedTool === tools.RECTANGLE}
+          onClick={onToolClickHandler(tools.RECTANGLE)}>
           <i className='fal fa-draw-square'></i>
           <span>Rectangle</span>
         </RectangleButton>
         <CircleButton
-          isSelected={selectedTool === 'circle'}
-          onClick={onToolClickHandler('circle')}>
+          isSelected={selectedTool === tools.CIRCLE}
+          onClick={onToolClickHandler(tools.CIRCLE)}>
           <i className='fal fa-draw-circle'></i>
           <span>Circle</span>
         </CircleButton>
@@ -82,7 +82,7 @@ const Selections = () => {
   )
 }
 
-export default Selections
+export default React.memo(Selections)
 
 const SelectionsWrapper = styled.div`
   height: 100%;

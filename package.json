@@ -10,7 +10,12 @@
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.12.9",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
     "@types/google.maps": "^3.46.1",
+    "@types/jest": "^26.0.24",
+    "immer": "^9.0.6",
     "next": "^12.0.4-canary.4",
     "react": "^18.0.0-alpha-9c8161ba8-20211028",
     "react-dom": "^18.0.0-alpha-9c8161ba8-20211028",
@@ -21,6 +26,8 @@
   "devDependencies": {
     "@swc/cli": "^0.1.51",
     "@swc/core": "^1.2.106",
+    "@testing-library/dom": "^8.11.1",
+    "@testing-library/react": "^12.1.2",
     "@types/node": "16.11.6",
     "@types/react": "17.0.33",
     "@types/react-dom": "^17.0.11",

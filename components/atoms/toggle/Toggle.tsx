@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ChangeEventHandler } from 'react';
 import styled from 'styled-components';
 
 interface ToggleProps {
-  onChange?: (event: React.ChangeEvent) => void;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
   size?: number;
 }
 

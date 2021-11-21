@@ -7,7 +7,7 @@ import { ThemeOption } from '../ui-overlay/uiStore'
 import { theme } from '@/templates/home/Home'
 
 const OVERVIEW_DIFFERENCE = 5
-const OVERVIEW_MIN_ZOOM = 3
+const OVERVIEW_MIN_ZOOM = 1
 const OVERVIEW_MAX_ZOOM = 10
 
 const restrictionBounds = {

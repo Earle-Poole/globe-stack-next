@@ -1,4 +1,5 @@
-import create from 'zustand';
+import produce from 'immer'
+import create from 'zustand'
 
 const initialState = {
   leftPanelExpanded: false,
@@ -9,7 +10,8 @@ const initialState = {
     settings: { isActive: false },
   },
   theme: 'dark' as ThemeOption,
-};
+  uom: 'mi' as UOMOption,
+}
 
 const useUIStore = create<UIStore>((set, get) => ({
   ...initialState,
@@ -21,42 +23,49 @@ const useUIStore = create<UIStore>((set, get) => ({
     set({
       hoveredCoords: latLng,
     }),
-  setTopMenuButton: (type, menuButtonObj) => {
-    const newTopMenuButtons = get().topMenuButtons;
-
-    newTopMenuButtons[type] = menuButtonObj;
-
-    return set({
-      topMenuButtons: newTopMenuButtons,
-    });
-  },
+  setTopMenuButton: (type, menuButtonObj) =>
+    set(
+      produce((state) => {
+        state.topMenuButtons[type] = menuButtonObj
+      })
+    ),
   setTheme: (theme: ThemeOption) =>
     set({
       theme,
     }),
-}));
+  setUOM: (uom: UOMOption) =>
+    set({
+      uom,
+    }),
+}))
 
-export default useUIStore;
+export default useUIStore
 
 interface UIStore {
-  leftPanelExpanded: boolean;
-  hoveredCoords: google.maps.LatLngLiteral;
-  theme: ThemeOption;
-  setLeftPanel: (expanded: boolean) => void;
-  setHoveredCoords: (coords: google.maps.LatLngLiteral) => void;
+  leftPanelExpanded: boolean
+  hoveredCoords: google.maps.LatLngLiteral
+  theme: ThemeOption
+  uom: UOMOption
+  setLeftPanel: (expanded: boolean) => void
+  setHoveredCoords: (coords: google.maps.LatLngLiteral) => void
   topMenuButtons: {
-    bookmarks: { isActive: boolean };
-    selections: { isActive: boolean };
-    settings: { isActive: boolean };
-  };
-  setTheme: (theme: ThemeOption) => void;
-  setTopMenuButton: (type: MenuButtonTypes, menuButtonObj: MenuButtonObj) => void;
+    bookmarks: { isActive: boolean }
+    selections: { isActive: boolean }
+    settings: { isActive: boolean }
+  }
+  setTheme: (theme: ThemeOption) => void
+  setTopMenuButton: (
+    type: MenuButtonTypes,
+    menuButtonObj: MenuButtonObj
+  ) => void
+  setUOM: (uom: UOMOption) => void
 }
 
-export type ThemeOption = 'light' | 'dark';
+export type UOMOption = 'km' | 'mi'
+export type ThemeOption = 'light' | 'dark'
 
 interface MenuButtonObj {
-  isActive: boolean;
+  isActive: boolean
 }
 
-export type MenuButtonTypes = 'selections' | 'bookmarks' | 'settings';
+export type MenuButtonTypes = 'selections' | 'bookmarks' | 'settings'

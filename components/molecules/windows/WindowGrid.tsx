@@ -5,6 +5,7 @@ import 'react-resizable/css/styles.css'
 import GridLayout from 'react-grid-layout'
 import useUIStore from '@/organisms/ui-overlay/uiStore'
 import { callClientSide } from '@/utils/tacklebox'
+import { windows } from '@/utils/constants'
 
 const WindowGrid = () => {
   const bookmarksIsActive = useUIStore(
@@ -17,7 +18,7 @@ const WindowGrid = () => {
     (store) => store.topMenuButtons.settings.isActive
   )
 
-  const defaultGridOptions = { x: 12, y: 0, w: 2, h: 2, minW: 2, maxW: 5 }
+  const defaultGridOptions = { x: 12, y: 0, w: 2, h: 3, minW: 2, maxW: 5 }
 
   let defaultWidth = 0
   callClientSide(() => {
@@ -34,18 +35,18 @@ const WindowGrid = () => {
         rowHeight={120}
         width={defaultWidth}>
         {bookmarksIsActive ? (
-          <div data-grid={defaultGridOptions} key='bookmarks'>
-            <WindowContainer type='bookmarks' />
+          <div data-grid={defaultGridOptions} key={windows.BOOKMARKS}>
+            <WindowContainer type={windows.BOOKMARKS} />
           </div>
         ) : null}
         {settingsIsActive ? (
-          <div data-grid={defaultGridOptions} key='settings'>
-            <WindowContainer type='settings' />
+          <div data-grid={defaultGridOptions} key={windows.SETTINGS}>
+            <WindowContainer type={windows.SETTINGS} />
           </div>
         ) : null}
         {selectionsIsActive ? (
-          <div data-grid={defaultGridOptions} key='selections'>
-            <WindowContainer type='selections' />
+          <div data-grid={defaultGridOptions} key={windows.SELECTIONS}>
+            <WindowContainer type={windows.SELECTIONS} />
           </div>
         ) : null}
       </GridLayout>
@@ -57,6 +58,19 @@ export default WindowGrid
 
 const WindowGridWrapper = styled.section`
   height: calc(100% - 45px);
+  overflow: hidden;
+
+  .react-grid-item.react-grid-placeholder {
+  background: ${(props) => props.theme.primaryColor};
+  opacity: 0.2;
+  transition-duration: 100ms;
+  z-index: 2;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
 
   .react-grid-layout {
     height: 100% !important;

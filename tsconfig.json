@@ -10,6 +10,7 @@
       "@/assets/*": ["assets/*"],
       "@/pages/*": ["pages/*"],
       "@/utils/*": ["utils/*"],
+      "@/constants/*": ["utils/constants/*"],
     },
     "target": "es5",
     "lib": [

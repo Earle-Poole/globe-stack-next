@@ -1,40 +1,66 @@
-import { useEffect, useRef } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import useMapStore from '@/organisms/map/mapStore'
+import { theme } from '@/components/templates/home/Home'
+import useUIStore from '@/components/organisms/ui-overlay/uiStore'
+import { useConvertMetersToKmOrMi } from '@/utils/tacklebox'
 
 export const Polyline = () => {
-  const primaryMap = useMapStore((store) => store.primaryGoogleMap)
+  const [length, setLength] = useState(0)
+  const primaryMap = useMapStore((store) => store.primaryGoogleMap)!
   const polyline = useRef(new google.maps.Polyline())
+  const currentTheme = useUIStore((store) => store.theme)
+  const uom = useUIStore((store) => store.uom)
+
+  polyline.current.setOptions({
+    strokeColor: theme[currentTheme].primaryColor,
+    strokeOpacity: 1.0,
+    strokeWeight: 3,
+    draggable: true,
+    editable: true,
+  })
+
+  const mouseDownHandler = useCallback(
+    (e: google.maps.MapMouseEvent) => {
+      polyline.current.getPath().push(e.latLng)
+
+      const computedLength = google.maps.geometry.spherical.computeLength(
+        polyline.current.getPath()
+      )
+
+      if (computedLength > length) {
+        setLength(computedLength)
+      }
+    },
+    [length]
+  )
 
   useEffect(() => {
-    const mouseDownHandler = () => {
-      console.log('mouse down')
-    }
-    const clickHandler = () => {
-      console.log('click')
-    }
     const currentPolyline = polyline.current
-    let clickListener: google.maps.MapsEventListener | undefined
     let mouseDownListener: google.maps.MapsEventListener | undefined
-    if (primaryMap) {
-      currentPolyline.setMap(primaryMap)
-      mouseDownListener = primaryMap.addListener('mousedown', mouseDownHandler)
-      clickListener = primaryMap.addListener('click', clickHandler)
-    }
+    currentPolyline.setMap(primaryMap)
+    mouseDownListener = primaryMap.addListener('mousedown', mouseDownHandler)
 
     return () => {
-      if (primaryMap) {
-        currentPolyline.setMap(null)
-        mouseDownListener && google.maps.event.removeListener(mouseDownListener)
-        clickListener && google.maps.event.removeListener(clickListener)
-      }
+      currentPolyline.setMap(null)
+      mouseDownListener && google.maps.event.removeListener(mouseDownListener)
     }
-  }, [primaryMap])
+  }, [mouseDownHandler, primaryMap])
+
+  const formattedLength = useConvertMetersToKmOrMi(length)
 
   return (
     <SelectedToolWrapper>
       <SelectedToolHeader>Polyline</SelectedToolHeader>
-      <SelectedToolBody></SelectedToolBody>
+      <SelectedToolBody>
+        <StatWrapper>
+          <StatLabel>Length</StatLabel>
+          <StatValue>{`${formattedLength.toLocaleString(undefined, {
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
+          })} ${uom}`}</StatValue>
+        </StatWrapper>
+      </SelectedToolBody>
     </SelectedToolWrapper>
   )
 }
@@ -66,3 +92,6 @@ export const Circle = () => {
 const SelectedToolWrapper = styled.div``
 const SelectedToolHeader = styled.div``
 const SelectedToolBody = styled.div``
+const StatWrapper = styled.div``
+const StatLabel = styled.div``
+const StatValue = styled.div``

@@ -11,39 +11,7 @@ import Image from 'next/image'
 import Toggle, { ToggleWrapper } from '@/atoms/toggle/Toggle'
 import { theme } from '@/templates/home/Home'
 import useMapStore from '@/organisms/map/mapStore'
-
-// const basemaps = [
-//   {
-//     name: 'Midnight',
-//     theme: 'midnightcommander',
-//     mapType: 'roadmap',
-//   },
-//   {
-//     name: 'Midnight\nLow Detail',
-//     theme: 'cleanermidnight',
-//     mapType: 'roadmap',
-//   },
-//   {
-//     name: 'Satellite',
-//     theme: '',
-//     mapType: 'satellite',
-//   },
-//   {
-//     name: 'Daybreak',
-//     theme: 'wy',
-//     mapType: 'roadmap',
-//   },
-//   {
-//     name: 'Daybreak\nLow Detail',
-//     theme: 'minimal',
-//     mapType: 'roadmap',
-//   },
-//   {
-//     name: 'Google Maps',
-//     theme: null,
-//     mapType: 'roadmap',
-//   },
-// ]
+import { ChangeEventHandler } from 'react'
 
 const Settings = () => {
   const primaryMap = useMapStore((store) => store.primaryGoogleMap)
@@ -58,7 +26,11 @@ const Settings = () => {
     })
     localStorage.setItem('theme', themeOption)
   }
+  const setUOM = useUIStore((store) => store.setUOM)
 
+  const onUOMToggle: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setUOM(e.target.checked ? 'km' : 'mi')
+  }
   const onBasemapButtonClick = (buttonName: string) => () => {
     const options: {
       mapTypeId: string
@@ -150,13 +122,13 @@ const Settings = () => {
         <SectionBody>
           <ButtonWrapper onClick={onBasemapButtonClick('Midnight')}>
             <IconWrapper>
-              <Image src={midnightBasemap} alt='' unoptimized />
+              <Image src={midnightBasemap} alt='' />
             </IconWrapper>
             Midnight
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('MidnightLow')}>
             <IconWrapper>
-              <Image src={midnightLowBasemap} alt='' unoptimized />
+              <Image src={midnightLowBasemap} alt='' />
             </IconWrapper>
             Midnight
             <br />
@@ -164,19 +136,19 @@ const Settings = () => {
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Satellite')}>
             <IconWrapper>
-              <Image src={satelliteBasemap} alt='' unoptimized />
+              <Image src={satelliteBasemap} alt='' />
             </IconWrapper>
             Satellite
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Daybreak')}>
             <IconWrapper>
-              <Image src={daybreakBasemap} alt='' unoptimized />
+              <Image src={daybreakBasemap} alt='' />
             </IconWrapper>
             Daybreak
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('DaybreakLow')}>
             <IconWrapper>
-              <Image src={daybreakLowBasemap} alt='' unoptimized />
+              <Image src={daybreakLowBasemap} alt='' />
             </IconWrapper>
             Daybreak
             <br />
@@ -184,7 +156,7 @@ const Settings = () => {
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Google Maps')}>
             <IconWrapper>
-              <Image src={googleMapsBasemap} alt='' unoptimized />
+              <Image src={googleMapsBasemap} alt='' />
             </IconWrapper>
             Google Maps
           </ButtonWrapper>
@@ -212,14 +184,7 @@ const Settings = () => {
         <SectionBody>
           <ToggleWithTextWrapper>
             <span>MI</span>
-            <Toggle
-              size={45}
-              onChange={(e: React.ChangeEvent) => {
-                console.log(
-                  (e.target as HTMLInputElement).checked ? 'KM' : 'MI'
-                )
-              }}
-            />
+            <Toggle size={45} onChange={onUOMToggle} />
             <span>KM</span>
           </ToggleWithTextWrapper>
         </SectionBody>

@@ -3,22 +3,28 @@ import { MenuButtonTypes } from '@/organisms/ui-overlay/uiStore'
 import Bookmarks from './Bookmarks'
 import Selections from './Selections'
 import Settings from './Settings'
+import { useCallback } from 'react'
+import { windows } from '@/utils/constants'
+import { WindowValues } from '@/utils/constants.types'
 
 interface WindowContainerProps {
-  type: MenuButtonTypes
+  type: WindowValues
 }
 
 const WindowContainer = (props: WindowContainerProps) => {
-  const SelectedWindow = () => {
+  const SelectedWindow = useCallback(() => {
     switch (props.type) {
-      case 'bookmarks':
+      case windows.BOOKMARKS:
         return <Bookmarks />
-      case 'selections':
+      case windows.SELECTIONS:
         return <Selections />
-      case 'settings':
+      case windows.SETTINGS:
         return <Settings />
+      default:
+        return null
     }
-  }
+  }, [props.type])
+  
   const headerString = props.type[0].toUpperCase() + props.type.substring(1)
 
   return (
