@@ -45,6 +45,7 @@ const WindowContainerWrapper = styled.div`
   border-radius: 6px;
   background: ${(props) => props.theme.primaryBackgroundColor};
   color: ${(props) => props.theme.fontColor};
+  border: 2px solid black;
 `
 const windowHeaderHeight = '25px'
 const WindowHeader = styled.div`

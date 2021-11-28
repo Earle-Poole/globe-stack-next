@@ -16,6 +16,19 @@ a {
   sans-serif;
 }
 
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+}
+
 /*
  * Google related
  */
@@ -91,4 +104,20 @@ a[title="Report errors in the road map or imagery to Google"] {
 
 .pac-container > .pac-item > .pac-item-query {
   color: #ffffff;
+}
+
+.map-marker-label {
+  background: #ffffffdd;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  color: #ffffff;
+  position: relative;
+  bottom: 1.3rem;
+  font-size: 1rem;
+  font-weight: bold;
+  line-height: 20px;
+  padding: 0 5px;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
 }
