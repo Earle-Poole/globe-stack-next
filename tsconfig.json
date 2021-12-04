@@ -3,11 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
+      "@/static/*": ["public/static/*"],
       "@/atoms/*": ["components/atoms/*"],
       "@/molecules/*": ["components/molecules/*"],
       "@/organisms/*": ["components/organisms/*"],
       "@/templates/*": ["components/templates/*"],
-      "@/assets/*": ["assets/*"],
       "@/pages/*": ["pages/*"],
       "@/utils/*": ["utils/*"],
       "@/constants/*": ["utils/constants/*"],
@@ -34,6 +34,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
+    "**/*.png",
     "**/*.tsx"],
   "exclude": [
     "node_modules"

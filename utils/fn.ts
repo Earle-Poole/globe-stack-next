@@ -1,3 +1,6 @@
+import path from 'path'
+import getConfig from 'next/config'
+
 function setCookie(cname: string, cvalue: string, exdays: number) {
   const d = new Date();
   d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -72,5 +75,8 @@ const copyToClipboard = (str: string) => {
   document.body.removeChild(el);
 };
 
+const serverPath = (staticFilePath: string) => {
+   return path.join(getConfig().serverRuntimeConfig.PROJECT_ROOT, staticFilePath)
+}
 
-export { getCookie, setCookie, throttle, copyToClipboard };
+export { getCookie, setCookie, throttle, copyToClipboard, serverPath };

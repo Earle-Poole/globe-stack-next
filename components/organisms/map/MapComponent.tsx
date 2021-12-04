@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Loader } from '@googlemaps/js-api-loader';
-import backgroundImage from '@/assets/low-poly-tile.png';
+import backgroundImage from '@/static/low-poly-tile.png';
 import useMapStore from './mapStore';
 import { ThemeOption } from '../ui-overlay/uiStore';
 import { theme } from '@/templates/home/Home';

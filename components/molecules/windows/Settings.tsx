@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-import midnightBasemap from '@/assets/midnight-basemap.png'
-import midnightLowBasemap from '@/assets/midnight-low-basemap.png'
-import daybreakBasemap from '@/assets/daybreak-basemap.png'
-import daybreakLowBasemap from '@/assets/daybreak-low-basemap.png'
-import satelliteBasemap from '@/assets/satellite-basemap.png'
-import googleMapsBasemap from '@/assets/google-maps-basemap.png'
+import midnightBasemap from '@/static/midnight-basemap.png'
+import midnightLowBasemap from '@/static/midnight-low-basemap.png'
+import daybreakBasemap from '@/static/daybreak-basemap.png'
+import daybreakLowBasemap from '@/static/daybreak-low-basemap.png'
+import satelliteBasemap from '@/static/satellite-basemap.png'
+import googleMapsBasemap from '@/static/google-maps-basemap.png'
 import mapStyles from '@/organisms/map/mapStylesTemplates'
 import useUIStore, { ThemeOption } from '@/organisms/ui-overlay/uiStore'
 import Image from 'next/image'
@@ -115,6 +115,8 @@ const Settings = () => {
   const themeIsSelected = (theme: ThemeOption) => {
     return selectedTheme === theme
   }
+
+  console.log('googleMapsBasemap: ', googleMapsBasemap)
   return (
     <SettingsWrapper>
       <MapThemeWrapper>
@@ -122,13 +124,13 @@ const Settings = () => {
         <SectionBody>
           <ButtonWrapper onClick={onBasemapButtonClick('Midnight')}>
             <IconWrapper>
-              <Image src={midnightBasemap} alt='' />
+              <Image height="50" width="95" src={midnightBasemap} alt='' />
             </IconWrapper>
             Midnight
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('MidnightLow')}>
             <IconWrapper>
-              <Image src={midnightLowBasemap} alt='' />
+              <Image height="50" width="95" src={midnightLowBasemap} alt='' />
             </IconWrapper>
             Midnight
             <br />
@@ -136,19 +138,19 @@ const Settings = () => {
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Satellite')}>
             <IconWrapper>
-              <Image src={satelliteBasemap} alt='' />
+              <Image height="50" width="95" src={satelliteBasemap} alt='' />
             </IconWrapper>
             Satellite
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Daybreak')}>
             <IconWrapper>
-              <Image src={daybreakBasemap} alt='' />
+              <Image height="50" width="95" src={daybreakBasemap} alt='' />
             </IconWrapper>
             Daybreak
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('DaybreakLow')}>
             <IconWrapper>
-              <Image src={daybreakLowBasemap} alt='' />
+              <Image height="50" width="95" src={daybreakLowBasemap} alt='' />
             </IconWrapper>
             Daybreak
             <br />
@@ -156,7 +158,7 @@ const Settings = () => {
           </ButtonWrapper>
           <ButtonWrapper onClick={onBasemapButtonClick('Google Maps')}>
             <IconWrapper>
-              <Image src={googleMapsBasemap} alt='' />
+              <Image height="50" width="95" src={googleMapsBasemap} alt='' />
             </IconWrapper>
             Google Maps
           </ButtonWrapper>
