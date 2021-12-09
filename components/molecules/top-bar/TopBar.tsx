@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import Logo from './Logo'
-import MenuButton from './MenuButton'
+import Logo from '../../atoms/logo/Logo'
+import MenuButton from '../../atoms/menu-button'
 
 const TopBar = () => {
   return (

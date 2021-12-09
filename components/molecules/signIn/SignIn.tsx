@@ -1,26 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
-import { setCookie } from '@/utils/fn';
-import { useSignInStore } from './signInStore';
+import { useEffect, useRef, useState } from 'react'
+import styled from 'styled-components'
+import { setCookie } from '@/utils/fn'
+import { useSignInStore } from '../../organisms/signInStore'
 
 const SignIn = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const keepSignedInRef = useRef<HTMLInputElement>(null!);
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const keepSignedInRef = useRef<HTMLInputElement>(null!)
 
-  const setIsLoggedIn = useSignInStore((store) => store.setIsLoggedIn);
+  const setIsLoggedIn = useSignInStore((store) => store.setIsLoggedIn)
+  const inputTypes = {
+    USERNAME: 'username',
+    PASSWORD: 'password',
+  } as const
 
   const onChangeHandler =
-    (type: 'username' | 'password') => (event: React.ChangeEvent<HTMLInputElement>) => {
+    (type: typeof inputTypes[keyof typeof inputTypes]) =>
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       switch (type) {
-        case 'username':
-          setUsername(event.target.value);
-          break;
-        case 'password':
-          setPassword(event.target.value);
-          break;
+        case inputTypes.USERNAME:
+          setUsername(event.target.value)
+          break
+        case inputTypes.PASSWORD:
+          setPassword(event.target.value)
+          break
       }
-    };
+    }
 
   // a function that makes a call to /signin with the username and password as the payload
   const onSubmitHandler = async (event: React.MouseEvent) => {
@@ -35,29 +40,29 @@ const SignIn = () => {
             username,
             password,
           }),
-        });
+        })
 
         if (res.status === 200) {
-          const data = (await res.json()) as { isSuccess: boolean };
+          const data = (await res.json()) as { isSuccess: boolean }
           if (data.isSuccess) {
-            setIsLoggedIn(true);
+            setIsLoggedIn(true)
             if (keepSignedInRef.current.checked) {
-              setCookie(btoa('isLoggedIn'), btoa('true'), 7);
+              setCookie(btoa('isLoggedIn'), btoa('true'), 7)
             }
           }
         }
       } catch (e) {
-        console.log(e);
+        console.log(e)
       }
     } else {
-      throw new Error('Username and password are required');
+      throw new Error('Username and password are required')
     }
-  };
+  }
 
-  const usernameInputRef = useRef<HTMLInputElement>(null);
+  const usernameInputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    usernameInputRef.current?.focus();
-  }, []);
+    usernameInputRef.current?.focus()
+  }, [])
 
   return (
     <SignInWrapper>
@@ -65,11 +70,18 @@ const SignIn = () => {
       <form>
         <UsernameWrapper>
           <label>Username</label>
-          <input type='username' ref={usernameInputRef} onChange={onChangeHandler('username')} />
+          <input
+            type={inputTypes.USERNAME}
+            ref={usernameInputRef}
+            onChange={onChangeHandler(inputTypes.USERNAME)}
+          />
         </UsernameWrapper>
         <PasswordWrapper>
           <label>Password</label>
-          <input type='password' onChange={onChangeHandler('password')} />
+          <input
+            type={inputTypes.PASSWORD}
+            onChange={onChangeHandler(inputTypes.PASSWORD)}
+          />
         </PasswordWrapper>
         <KeepSignedInWrapper>
           <label>Keep signed in</label>
@@ -80,10 +92,10 @@ const SignIn = () => {
         </SignInButton>
       </form>
     </SignInWrapper>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn
 
 const SignInWrapper = styled.div`
   width: 26rem;
@@ -101,7 +113,7 @@ const SignInWrapper = styled.div`
     row-gap: 2rem;
     padding: 1rem 0;
   }
-`;
+`
 
 const InputWrapper = styled.div`
   grid-column-start: 4;
@@ -110,13 +122,13 @@ const InputWrapper = styled.div`
 
 const UsernameWrapper = styled(InputWrapper)`
   grid-row-start: 1;
-`;
+`
 const PasswordWrapper = styled(InputWrapper)`
   grid-row-start: 2;
-`;
+`
 const KeepSignedInWrapper = styled(InputWrapper)`
   grid-row-start: 3;
-`;
+`
 const SignInButton = styled.button`
   grid-row-start: 4;
   grid-column-start: 5;

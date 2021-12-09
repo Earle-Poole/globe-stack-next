@@ -1,15 +1,15 @@
 import useUIStore from '@/organisms/ui-overlay/uiStore'
-import { useSignInStore } from '@/molecules/signIn/signInStore'
+import { useSignInStore } from '@/components/organisms/signInStore'
 import Head from 'next/head'
 import { useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { getCookie } from '@/utils/fn'
 import Overlay from '@/atoms/overlay/Overlay'
-import SignIn from '@/molecules/signIn/SignIn'
-import Map from '@/organisms/map/MapComponent'
-import UIOverlay from '@/organisms/ui-overlay/UIOverlay'
-import styles from './Home.module.css'
+import SignIn from '@/molecules/signIn'
+import Map from '@/organisms/map'
+import UIOverlay from '@/organisms/ui-overlay'
 import { callClientSide } from '@/utils/tacklebox'
+import styled from 'styled-components'
 
 interface ThemeObj {
   fontColor: string
@@ -64,7 +64,7 @@ const Home = () => {
 
   return (
     <ThemeProvider theme={theme[selectedTheme]}>
-      <div className={styles.container}>
+      <HomeContainer>
         <Head>
           <title>Globe Stack</title>
         </Head>
@@ -75,9 +75,14 @@ const Home = () => {
             <SignIn />
           </Overlay>
         )}
-      </div>
+      </HomeContainer>
     </ThemeProvider>
   )
 }
+
+const HomeContainer = styled.div`
+  padding: 0;
+  margin: 0;
+`
 
 export default Home

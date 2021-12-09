@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import LeftBar from '@/molecules/left-bar/LeftBar'
+import LeftBar from '@/organisms/left-bar'
 import TopBar from '@/molecules/top-bar/TopBar'
 import WindowGrid from '@/molecules/windows/WindowGrid'
 
@@ -18,7 +18,7 @@ const UIOverlayWrapper = styled.div`
     background-color: ${(props) => props.theme.primaryColor};
   }
   bottom: 0;
-  z-index: 10;
+  z-index: 1;
   left: 0;
   pointer-events: none;
   position: absolute;
