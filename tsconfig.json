@@ -10,14 +10,10 @@
       "@/templates/*": ["components/templates/*"],
       "@/pages/*": ["pages/*"],
       "@/utils/*": ["utils/*"],
-      "@/constants/*": ["utils/constants/*"],
+      "@/constants/*": ["utils/constants/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -35,8 +31,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.png",
-    "**/*.tsx"],
-  "exclude": [
-    "node_modules"
-  ]
+    "**/*.tsx",
+    "pages/api/auth/[...nextauth].js"
+  ],
+  "exclude": ["node_modules"]
 }

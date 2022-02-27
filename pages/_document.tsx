@@ -1,8 +1,8 @@
-import { Html, Head, Main, NextScript } from 'next/document';
+import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang='en'>
       <Head>
         <noscript id='__next_css__DO_NOT_USE__' />
       </Head>
@@ -11,5 +11,5 @@ export default function Document() {
         <NextScript />
       </body>
     </Html>
-  );
+  )
 }

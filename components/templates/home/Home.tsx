@@ -1,7 +1,6 @@
 import useUIStore from '@/organisms/ui-overlay/uiStore'
 import { useSignInStore } from '@/components/organisms/signInStore'
-import Head from 'next/head'
-import { useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { getCookie } from '@/utils/fn'
 import Overlay from '@/atoms/overlay/Overlay'
@@ -10,6 +9,15 @@ import Map from '@/organisms/map'
 import UIOverlay from '@/organisms/ui-overlay'
 import { callClientSide } from '@/utils/tacklebox'
 import styled from 'styled-components'
+import {
+  ClientSafeProvider,
+  getProviders,
+  getSession,
+  LiteralUnion,
+} from 'next-auth/react'
+import Head from 'next/head'
+import { Session } from 'next-auth'
+import { BuiltInProviderType } from 'next-auth/providers'
 
 interface ThemeObj {
   fontColor: string
@@ -42,7 +50,16 @@ export const theme: { light: ThemeObj; dark: ThemeObj } = {
   },
 }
 
-const Home = () => {
+export interface HomeProps {
+  userSession: Session | null
+  providers: Record<
+    LiteralUnion<BuiltInProviderType, string>,
+    ClientSafeProvider
+  > | null
+}
+
+const Home: FC<HomeProps> = (props) => {
+  const { userSession, providers } = props
   const selectedTheme = useUIStore((state) => state.theme)
   const setTheme = useUIStore((state) => state.setTheme)
   const isLoggedIn = useSignInStore((state) => state.isLoggedIn)
@@ -70,7 +87,7 @@ const Home = () => {
         </Head>
         <Map />
         <UIOverlay />
-        {isLoggedIn ? null : (
+        {isLoggedIn || userSession ? null : (
           <Overlay>
             <SignIn />
           </Overlay>

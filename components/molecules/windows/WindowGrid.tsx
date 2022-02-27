@@ -1,23 +1,28 @@
-import styled from 'styled-components';
-import WindowContainer from './WindowContainer';
-import 'react-grid-layout/css/styles.css';
-import 'react-resizable/css/styles.css';
-import GridLayout from 'react-grid-layout';
-import useUIStore from '@/organisms/ui-overlay/uiStore';
-import { callClientSide } from '@/utils/tacklebox';
-import { windows } from '@/utils/constants';
+import styled from 'styled-components'
+import WindowContainer from './WindowContainer'
+import 'react-grid-layout/css/styles.css'
+import GridLayout from 'react-grid-layout'
+import useUIStore from '@/organisms/ui-overlay/uiStore'
+import { callClientSide } from '@/utils/tacklebox'
+import { windows } from '@/utils/constants'
 
 const WindowGrid = () => {
-  const bookmarksIsActive = useUIStore((store) => store.topMenuButtons.bookmarks.isActive);
-  const selectionsIsActive = useUIStore((store) => store.topMenuButtons.selections.isActive);
-  const settingsIsActive = useUIStore((store) => store.topMenuButtons.settings.isActive);
+  const bookmarksIsActive = useUIStore(
+    (store) => store.topMenuButtons.bookmarks.isActive
+  )
+  const selectionsIsActive = useUIStore(
+    (store) => store.topMenuButtons.selections.isActive
+  )
+  const settingsIsActive = useUIStore(
+    (store) => store.topMenuButtons.settings.isActive
+  )
 
-  const defaultGridOptions = { x: 12, y: 0, w: 2, h: 3, minW: 2, maxW: 5 };
+  const defaultGridOptions = { x: 12, y: 0, w: 2, h: 3, minW: 2, maxW: 5 }
 
-  let defaultWidth = 0;
+  let defaultWidth = 0
   callClientSide(() => {
-    defaultWidth = window.innerWidth;
-  });
+    defaultWidth = window.innerWidth
+  })
 
   return (
     <WindowGridWrapper>
@@ -45,10 +50,10 @@ const WindowGrid = () => {
         ) : null}
       </GridLayout>
     </WindowGridWrapper>
-  );
-};
+  )
+}
 
-export default WindowGrid;
+export default WindowGrid
 
 const WindowGridWrapper = styled.section`
   height: calc(100% - 45px);
@@ -70,7 +75,7 @@ const WindowGridWrapper = styled.section`
     border-color: ${(props) => props.theme.primaryColor};
     box-shadow: 2px 2px 1px 0px ${(props) => props.theme.primaryBackgroundColor};
     right: 5px;
-    bottom: 7px; 
+    bottom: 7px;
   }
 
   .react-grid-layout {
@@ -79,4 +84,4 @@ const WindowGridWrapper = styled.section`
   .react-grid-item {
     pointer-events: auto;
   }
-`;
+`

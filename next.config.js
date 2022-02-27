@@ -5,7 +5,6 @@ const webpack = require('webpack')
 
 module.exports = withPlugins([[withImages]], {
   experimental: {
-    styledComponents: true,
     //   concurrentFeatures: false,
     //   serverComponents: false,
   },
@@ -29,4 +28,7 @@ module.exports = withPlugins([[withImages]], {
       process: 'process/browser',
     }),
   ],
+  compiler: {
+    styledComponents: true,
+  },
 })

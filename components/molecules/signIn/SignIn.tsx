@@ -1,11 +1,17 @@
-import { useEffect, useRef, useState } from 'react'
+import { FC, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { setCookie } from '@/utils/fn'
 import { useSignInStore } from '../../organisms/signInStore'
+import { signIn } from 'next-auth/react'
+import GoogleSignInButtonIcon from '@/components/atoms/social-login/Google'
+import { Session } from 'next-auth'
 
-const SignIn = () => {
+interface SignInProps {}
+
+const SignIn: FC<SignInProps> = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
   const keepSignedInRef = useRef<HTMLInputElement>(null!)
 
   const setIsLoggedIn = useSignInStore((store) => store.setIsLoggedIn)
@@ -31,24 +37,12 @@ const SignIn = () => {
   const onSubmitHandler = async (event: React.MouseEvent) => {
     if (username && password) {
       try {
-        const res = await fetch('/api/signin', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username,
-            password,
-          }),
-        })
+        const response = await signIn('credentials', { username, password })
 
-        if (res.status === 200) {
-          const data = (await res.json()) as { isSuccess: boolean }
-          if (data.isSuccess) {
-            setIsLoggedIn(true)
-            if (keepSignedInRef.current.checked) {
-              setCookie(btoa('isLoggedIn'), btoa('true'), 7)
-            }
+        if (response) {
+          setIsLoggedIn(true)
+          if (keepSignedInRef.current.checked) {
+            setCookie(btoa('isLoggedIn'), btoa('true'), 7)
           }
         }
       } catch (e) {
@@ -59,6 +53,7 @@ const SignIn = () => {
     }
   }
 
+  // used to focus the user on the Username input
   const usernameInputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
     usernameInputRef.current?.focus()
@@ -91,17 +86,42 @@ const SignIn = () => {
           Sign In
         </SignInButton>
       </form>
+      <SignInSeparator>OR</SignInSeparator>
+      <SocialSignInWrapper>
+        <GoogleSignInButtonIcon onClick={async () => await signIn('google')} />
+      </SocialSignInWrapper>
     </SignInWrapper>
   )
 }
 
 export default SignIn
 
+const SocialSignInWrapper = styled.div``
+
+const SignInSeparator = styled.div`
+  display: flex;
+  align-items: center;
+  text-align: center;
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+  }
+  &:not(:empty)::before {
+    margin-right: 0.25em;
+  }
+
+  &:not(:empty)::after {
+    margin-left: 0.25em;
+  }
+`
+
 const SignInWrapper = styled.div`
   width: 26rem;
-  border: 1px solid black;
+  border: 1/8rem solid black;
   background: #f5f5f5;
-  border-radius: 0.5rem;
+  border-radius: 1/2rem;
   text-align: center;
 
   form {

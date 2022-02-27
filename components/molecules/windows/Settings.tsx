@@ -116,7 +116,6 @@ const Settings = () => {
     return selectedTheme === theme
   }
 
-  console.log('googleMapsBasemap: ', googleMapsBasemap)
   return (
     <SettingsWrapper>
       <MapThemeWrapper>
