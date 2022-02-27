@@ -5,13 +5,14 @@
   "scripts": {
     "dev": "next dev",
     "dev-alt": "next dev -p 3001",
-    "build": "next build && next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "storybook": "start-storybook -p 6006 ./public",
     "build-storybook": "build-storybook"
   },
   "exports": "./*",
+  "homepage": "/",
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.12.9",
     "@testing-library/jest-dom": "^5.14.1",
