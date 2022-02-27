@@ -52,14 +52,10 @@ export const theme: { light: ThemeObj; dark: ThemeObj } = {
 
 export interface HomeProps {
   userSession: Session | null
-  providers: Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null
 }
 
 const Home: FC<HomeProps> = (props) => {
-  const { userSession, providers } = props
+  const { userSession } = props
   const selectedTheme = useUIStore((state) => state.theme)
   const setTheme = useUIStore((state) => state.setTheme)
   const isLoggedIn = useSignInStore((state) => state.isLoggedIn)

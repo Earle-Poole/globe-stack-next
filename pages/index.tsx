@@ -9,9 +9,8 @@ const Main: NextPage<HomeProps> = (props) => {
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const session = await getSession({ req: context.req })
-  const providers = await getProviders()
 
-  return { props: { userSession: session, providers } }
+  return { props: { userSession: session } }
 }
 
 export default Main
