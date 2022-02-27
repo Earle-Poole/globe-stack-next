@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta, Meta } from '@storybook/react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import Home from './Home'
 import { ThemeProvider } from 'styled-components'
@@ -22,8 +22,10 @@ export default {
   ],
 } as ComponentMeta<typeof Home>
 
-const Template: ComponentStory<typeof Home> = () => <Home />
+const Template: ComponentStory<typeof Home> = () => (
+  <Home userSession={null} providers={null} />
+)
 const Main = Template.bind({})
-Main.args = {} as Meta
+Main.args = {}
 
 export { Main }

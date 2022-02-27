@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentStory, ComponentMeta, Meta } from '@storybook/react'
+import { ComponentStory, ComponentMeta } from '@storybook/react'
 
 import SignIn from './SignIn'
 import { ThemeProvider } from 'styled-components'
@@ -21,6 +21,6 @@ export default {
 
 const Template: ComponentStory<typeof SignIn> = () => <SignIn />
 const Main = Template.bind({})
-Main.args = {} as Meta
+Main.args = {}
 
 export { Main }
