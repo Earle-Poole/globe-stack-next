@@ -22,9 +22,7 @@ export default {
   ],
 } as ComponentMeta<typeof Home>
 
-const Template: ComponentStory<typeof Home> = () => (
-  <Home userSession={null} providers={null} />
-)
+const Template: ComponentStory<typeof Home> = () => <Home userSession={null} />
 const Main = Template.bind({})
 Main.args = {}
 
