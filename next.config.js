@@ -10,7 +10,7 @@ module.exports = withPlugins([[withImages]], {
   },
   reactStrictMode: true,
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'globe-stack-next.vercel.app'],
     loader: 'akamai',
     path: '/',
     disableStaticImages: true,

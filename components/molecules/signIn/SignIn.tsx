@@ -38,6 +38,7 @@ const SignIn: FC<SignInProps> = () => {
     if (username && password) {
       try {
         const response = await signIn('credentials', { username, password })
+        console.log('response: ', response)
 
         if (response) {
           setIsLoggedIn(true)
